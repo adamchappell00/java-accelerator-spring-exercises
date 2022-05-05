@@ -6,6 +6,7 @@ import com.example.spring.models.Record;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,16 +17,16 @@ public class RecordStoreController {
     private static int idCounter = 1;
 
     private static List<Record> recordList = new ArrayList<>(Arrays.asList(
-            new Record("The Beach Boys", "Pet Sounds", idCounter++),
-            new Record("Billy Joel", "The Stranger", idCounter++),
-            new Record("The Beatles", "Revolver", idCounter++),
-            new Record("Kanye West", "My Beautiful Dark Twisted Fantasy", idCounter++),
-            new Record("Sturgill Simpson", "Metamodern Sounds in Country Music", idCounter++)
+            new Record("The Beach Boys", "Pet Sounds",  idCounter++, "1972"),
+            new Record("Billy Joel", "The Stranger", idCounter++, "1987"),
+            new Record("The Beatles", "Revolver", idCounter++, "1970"),
+            new Record("Kanye West", "My Beautiful Dark Twisted Fantasy", idCounter++, "2008"),
+            new Record("Sturgill Simpson", "Metamodern Sounds in Country Music", idCounter++, "1111")
     ));
 
     @RequestMapping(value = "/records", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Record createRecord(@RequestBody Record record) {
+    public Record createRecord(@Valid @RequestBody Record record) {
 
         record.setId(idCounter++);
         recordList.add(record);
